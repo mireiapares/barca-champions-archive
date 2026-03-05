@@ -1,0 +1,191 @@
+/* VARIABLES DE COLORS OFICIALS */
+:root {
+    --blau-fcb: #004d98;                        /* Defineixo el blau oficial del club */
+    --grana-fcb: #a50044;                       /* Defineixo el grana oficial del club */
+    --dorat-fcb: #edbb00;                       /* Defineixo el daurat per als campions */
+    --negre-fons: #0a0a0a;                      /* Trio un negre intens per al fons de la web */
+}
+
+/* Resetejo marges i paddings inicials de tots els elements */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html {
+    background-color: var(--negre-fons);        /* Aplico el fons negre que he definit abans */
+    font-family: 'Segoe UI', Roboto, sans-serif; /* Trio una font moderna i que es llegeixi bé */
+    color: white;                               /* Poso el text blanc per defecte */
+    height: 100%;                               /* Faig que ocupi tota l'alçada de la pantalla */
+    overflow: hidden;                           /* Evito que la pàgina general tingui scroll */
+}
+
+#app-container {
+    height: 100vh;                              /* Ocupo el 100% del visor del navegador */
+    display: flex;                              /* Faig servir flexbox per organitzar el layout */
+    flex-direction: column;                     /* Poso els elements un sota de l'altre */
+    background: linear-gradient(135deg, #001e3d 0%, #1a1a1a 50%, #4a001e 100%); /* Creo un degradat blaugrana */
+}
+
+#pantalla-llista {
+    display: flex;                              /* Organitzo la pantalla de la llista */
+    flex-direction: column;                     /* Elements en vertical */
+    height: 100%;                               /* Que ompli tot el contenidor */
+}
+
+header { 
+    padding: 25px 20px;                         /* Dono espai al voltant del logo i títol */
+    text-align: center;                         /* Centro tot el contingut de la capçalera */
+    background: rgba(0, 0, 0, 0.4);             /* Poso un fons negre suau amb transparència */
+    flex-shrink: 0;                             /* Evito que la capçalera es faci petita */
+    border-bottom: 1px solid rgba(237, 187, 0, 0.2); /* Afegeixo una línia daurada molt fina */
+}
+
+.logo { width: 65px; margin-bottom: 10px; }     /* Ajusto la mida del logo del Barça */
+h1 { color: var(--dorat-fcb); font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; } /* Estilo el títol principal */
+
+.selector-genere { display: flex; justify-content: center; gap: 15px; margin-top: 15px; } /* Poso espai entre els botons */
+
+.btn-cat {
+    background: rgba(255, 255, 255, 0.1);       /* Poso un fons blanc molt transparent */
+    color: white;                               /* Text del botó en blanc */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Faig un marc discret */
+    padding: 10px 25px;                         /* Faig els botons prou grans per tocar-los */
+    border-radius: 25px;                        /* Arrodoneixo les puntes tipus càpsula */
+    cursor: pointer;                            /* Poso la mà de clic al passar el ratolí */
+    font-weight: bold;                          /* Text en negreta per destacar */
+    transition: 0.3s;                           /* Faig que el canvi de color sigui suau */
+}
+
+.btn-cat.active { 
+    background: var(--dorat-fcb);               /* El botó seleccionat es torna daurat */
+    color: black;                               /* El text passa a negre per contrastar */
+    border-color: var(--dorat-fcb);             /* El marc també es torna daurat */
+    box-shadow: 0 0 15px rgba(237, 187, 0, 0.3); /* Afegeixo una resplendor al botó actiu */
+}
+
+.zona-contingut {
+    flex: 1;                                    /* Faig que aquesta part ocupi l'espai sobrant */
+    overflow-y: auto;                           /* Permeto fer scroll vertical aquí dins */
+    padding: 25px 20px;                         /* Dono marges interns per al contingut */
+    -webkit-overflow-scrolling: touch;          /* Milloro el scroll en dispositius Apple */
+}
+
+#titol-categoria {
+    margin-bottom: 20px;                        /* Separo el títol de la llista de vídeos */
+    font-size: 1.6rem;                          /* Faig el títol de categoria més gran */
+    color: white;                               /* Text en blanc */
+    padding-left: 5px;                          /* Petit marge a l'esquerra */
+}
+
+#grid-videos {
+    display: flex;                              /* Faig servir flexbox per a la llista */
+    flex-direction: column;                     /* Poso els vídeos en format llista */
+    gap: 18px;                                  /* Poso espai entre les targetes */
+    padding-bottom: 60px;                       /* Deixo espai al final per no tallar el contingut */
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.08);      /* Poso un fons clar i transparent a la card */
+    backdrop-filter: blur(5px);                 /* Faig l'efecte de vidre que es veu al darrere */
+    border-radius: 12px;                        /* Arrodoneixo els cantons de la targeta */
+    display: flex;                              /* Poso la imatge i el text de costat */
+    align-items: center;                        /* Centro el contingut verticalment */
+    padding: 15px;                              /* Dono aire a dins de la targeta */
+    border-left: 5px solid var(--blau-fcb);     /* Poso el bordó blau típic a l'esquerra */
+    transition: transform 0.2s;                 /* Animació per si vull fer efectes de moviment */
+}
+
+.video-card.vist { 
+    border-left-color: var(--dorat-fcb);        /* Si el vídeo està vist, el bordó es torna daurat */
+    background: rgba(237, 187, 0, 0.05);        /* Poso un fons groguenc molt suau */
+}
+
+.poster-container { position: relative; flex-shrink: 0; } /* Contenidor per fixar la icona vist */
+.video-card img { width: 100px; height: 65px; border-radius: 6px; object-fit: cover; } /* Estilo la miniatura */
+
+.icon-vist {
+    position: absolute; bottom: -5px; right: -5px; /* Poso la pilota a la cantonada de la foto */
+    background: var(--dorat-fcb); width: 24px; height: 24px; /* Cercle daurat petit */
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; /* Centro la pilota */
+    font-size: 0.9rem; border: 2px solid var(--grana-fcb); /* Bordó grana per ressaltar */
+}
+
+#pantalla-reproductor {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; /* Que ocupi tota la pantalla */
+    background: radial-gradient(circle at top, #003366, #121212); /* Fons de degradat circular fosc */
+    z-index: 1000;                              /* Ens assegurem que quedi per sobre de tot */
+    display: flex;                              /* Activo flexbox per al reproductor */
+    flex-direction: column;                     /* Elements en vertical */
+}
+
+.circle-btn-float {
+    position: absolute; top: 20px; left: 20px; z-index: 10; /* Botó de tornar flotant */
+    background: var(--grana-fcb); border: 2px solid var(--dorat-fcb); /* Colors del club */
+    color: white; width: 45px; height: 45px; border-radius: 50%; /* Botó circular */
+    font-size: 1.5rem; cursor: pointer;         /* Icona gran i punter de clic */
+}
+
+.video-box { padding: 80px 15px 10px 15px; flex-shrink: 0; } /* Espaiat per al reproductor */
+video { width: 100%; border-radius: 10px; border: 2px solid var(--dorat-fcb); box-shadow: 0 10px 30px rgba(0,0,0,0.8); } /* Estilo el vídeo */
+
+/* CONTROLS AMB EFECTE GLOW I AMPLE MILLORAT */
+.controls-personalitzats {
+    display: flex;                              /* Organitzo els botons en línia */
+    align-items: center;                        /* Centro els botons verticalment */
+    justify-content: space-between;             /* Distribueixo l'espai entre botons */
+    gap: 10px;                                  /* Separo els controls entre ells */
+    padding: 10px 18px;                         /* Aire intern per a la barra de controls */
+    margin: 20px auto;                          /* Centrat horitzontal i marge vertical */
+    width: calc(100% - 30px);                   /* Amplada adaptada al mòbil */
+    max-width: 500px;                           /* Mida màxima per a pantalles grans */
+    background: rgba(0, 0, 0, 0.95);            /* Negre gairebé total per als controls */
+    border-radius: 50px;                        /* Forma de càpsula moderna */
+    border: 1.5px solid var(--dorat-fcb);       /* Bordó daurat per destacar */
+    box-shadow: 0 0 15px rgba(237, 187, 0, 0.4); /* Afegeixo l'efecte resplendor (glow) */
+    transition: all 0.3s ease;                  /* Transicions suaus per a tot */
+}
+
+.btn-play { 
+    background: var(--grana-fcb);               /* Botó de play de color grana */
+    border: none; color: white; border-radius: 50%; 
+    width: 45px; height: 45px; flex-shrink: 0;  /* Faig que el botó sigui un cercle perfecte */
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+
+#seek-bar { 
+    flex: 1;                                    /* Faig que la barra de temps sigui el més llarga possible */
+    min-width: 50px;                            /* Ample mínim de seguretat */
+    accent-color: var(--dorat-fcb);             /* Poso el color daurat al selector de la barra */
+    cursor: pointer;                            /* Punter de mà */
+    transition: all 0.3s ease;                  /* Canvis de mida o color suaus */
+}
+
+.volume-container {
+    display: flex;                              /* Altaveu i barra de volum junts */
+    align-items: center; gap: 8px;              /* Espai entre icona i barra */
+    position: relative; flex-shrink: 0;         /* Evito que s'enculli per falta d'espai */
+}
+
+#volume-bar {
+    width: 0;                                   /* Comença amb ample 0 (amagada) */
+    opacity: 0;                                 /* Comença invisible */
+    transition: width 0.3s ease, opacity 0.3s ease; /* Faig que aparegui lliscant suau */
+    accent-color: var(--dorat-fcb);             /* Color daurat per a la barra de volum */
+}
+
+.volume-container.show #volume-bar {
+    width: 65px;                                /* Ample de la barra quan es mostra */
+    opacity: 1;                                 /* Es torna visible quan té la classe .show */
+}
+
+.icon-control { background: transparent; border: none; color: var(--dorat-fcb); font-size: 1.4rem; cursor: pointer; } /* Estilo icones */
+#timer { font-family: monospace; font-size: 0.9rem; min-width: 42px; text-align: center; } /* Estilo el cronòmetre */
+
+.info-final { 
+    padding: 25px;                              /* Dono espai al text descriptiu */
+    overflow-y: auto;                           /* Permeto fer scroll si el text és molt llarg */
+    flex: 1;                                    /* Omple l'espai que queda sota el vídeo */
+}
+
+.info-final h2 { color: var(--dorat-fcb); margin-bottom: 15px; font-size: 1.7rem; } /* Estilo el títol del vídeo */
+#video-desc { line-height: 1.7; color: #ddd; font-size: 1.1rem; } /* Faig que el text es llegeixi fàcil */
+
+.hidden { display: none !important; }           /* Classe per amagar pantalles o elements */

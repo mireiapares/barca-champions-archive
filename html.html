@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Barça Champions Archive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <section id="pantalla-llista">
+            <header>
+                <div class="header-superior">
+                    <img src="sources/fcb-logo.png" class="logo" alt="Logo Barça">
+                    <h1>FINALS CHAMPIONS</h1>
+                </div>
+                <div class="selector-genere">
+                    <button id="btn-masculi" class="btn-cat active">MASCULÍ</button>
+                    <button id="btn-femeni" class="btn-cat">FEMENÍ</button>
+                </div>
+            </header>
+            <main class="zona-contingut">
+                <h2 id="titol-categoria">Masculí</h2>
+                <div id="grid-videos"></div> 
+            </main>
+        </section>
+
+        <section id="pantalla-reproductor" class="hidden">
+            <button id="btn-back" class="circle-btn-float">↩</button>
+            
+            <div class="video-box">
+                <video id="meu-video" playsinline></video>
+                <div class="controls-personalitzats">
+                    <button id="play-pause" class="btn-play">▶</button>
+                    <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
+                    <span id="timer">0:00</span>
+                    
+                    <div class="volume-container">
+                        <button id="mute-btn" class="icon-control">🔊</button>
+                        <input type="range" id="volume-bar" value="1" min="0" max="1" step="0.05">
+                    </div>
+
+                    <button id="full-screen-btn" class="icon-control">⛶</button>
+                </div>
+            </div>
+            
+            <div class="info-final">
+                <h2 id="video-title"></h2>
+                <p id="video-desc"></p>
+            </div>
+        </section>
+    </div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
